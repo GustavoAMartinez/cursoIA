@@ -101,6 +101,7 @@
             { username: 'admin', password: '12345' }
         ];
         const clients = [];
+        let currentUser = null;  // Variable para almacenar al usuario logueado
 
         // Función para iniciar sesión
         document.getElementById('loginForm').addEventListener('submit', function (event) {
@@ -111,7 +112,9 @@
             const user = users.find(u => u.username === username && u.password === password);
 
             if (user) {
-                // Login exitoso, mostrar formulario de registro
+                // Login exitoso, guardar el usuario actual
+                currentUser = user.username;
+                // Mostrar formulario de registro y lista de clientes
                 document.getElementById('login-form').style.display = 'none';
                 document.getElementById('client-form').style.display = 'block';
                 document.getElementById('client-list').style.display = 'block';
@@ -132,7 +135,7 @@
                 email: document.getElementById('email').value,
                 interestDescription: document.getElementById('interestDescription').value,
                 date: new Date().toLocaleString(),
-                user: document.getElementById('username').value
+                user: currentUser // Usamos el usuario logueado
             };
             clients.push(client);
             updateClientTable();
@@ -161,4 +164,23 @@
 
         // Función para cambiar el color de fondo
         function changeBackgroundColor() {
-            const colors = ['#f0f8ff', '#f0e68c', '#add8e6', '#98fb98', 
+            const colors = ['#f0f8ff', '#f0e68c', '#add8e6', '#98fb98', '#dda0dd'];
+            const randomColor = colors[Math.floor(Math.random() * colors.length)];
+            document.body.style.backgroundColor = randomColor;
+            document.getElementById('body').classList.remove('background-image');
+        }
+
+        // Función para cambiar la imagen de fondo
+        function changeBackgroundImage() {
+            const images = [
+                'https://via.placeholder.com/1920x1080.png?text=Imagen+1',
+                'https://via.placeholder.com/1920x1080.png?text=Imagen+2',
+                'https://via.placeholder.com/1920x1080.png?text=Imagen+3'
+            ];
+            const randomImage = images[Math.floor(Math.random() * images.length)];
+            document.body.style.backgroundImage = `url(${randomImage})`;
+            document.getElementById('body').classList.add('background-image');
+        }
+    </script>
+</body>
+</html>
